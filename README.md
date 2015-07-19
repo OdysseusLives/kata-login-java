@@ -1,4 +1,4 @@
-Purpose: login kata
+Purpose: login kata, using Java, Spring Boot, Thymeleaf templating
 
 Requirements: 
 - gradle

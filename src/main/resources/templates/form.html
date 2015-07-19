@@ -4,21 +4,27 @@
     </head>
     <body>
         <form action="#" th:action="@{/}" th:object="${user}" method="post">
-            <table class="user-form">
-                <tr>
-                    <td>Username:</td>
-                    <td><input type="text" th:field="*{username}" /></td>
-                    <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</td>
-                </tr>
-                <tr>
-                    <td>Password:</td>
-                    <td><input type="text" th:field="*{password}" /></td>
-                    <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
-                </tr>
-                <tr>
-                    <td><button type="submit">Submit</button></td>
-                </tr>
-            </table>
+            <div class="row">
+                Username:
+                <input type="text" th:field="*{username}" />
+
+                <p th:if="${#fields.hasErrors('username')}">There were errors in the username:</p>
+                <ul>
+                    <li th:each="err : ${#fields.errors('username')}" th:text="${err}" />
+                </ul>
+            </div>
+            
+            <div class="row">
+                Password:
+                <input type="text" th:field="*{password}" />
+
+                <p th:if="${#fields.hasErrors('password')}">There were errors in the password:</p>
+                <ul>
+                    <li th:each="err : ${#fields.errors('password')}" th:text="${err}" />
+                </ul>
+            </div>
+
+            <button type="submit">Submit</button>
         </form>
     </body>
 </html>
