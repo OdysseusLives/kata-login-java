@@ -75,7 +75,7 @@ public class UserTest {
 
         Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
 
-        assertThat(constraintViolations.iterator().next().getMessage()).contains("must contain one lowercase letter.");
+        assertThat(constraintViolations.iterator().next().getMessage()).contains("must contain one lowercase letter");
         assertThat(constraintViolations.size()).isEqualTo(1);
     }
 
@@ -85,7 +85,17 @@ public class UserTest {
 
         Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
 
-        assertThat(constraintViolations.iterator().next().getMessage()).contains("must contain one uppercase letter.");
+        assertThat(constraintViolations.iterator().next().getMessage()).contains("must contain one uppercase letter");
+        assertThat(constraintViolations.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void password_shouldContainADigit() throws Exception {
+        User user = new User(validUser.getUsername(), "hereisaGREATpassword");
+
+        Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
+
+        assertThat(constraintViolations.iterator().next().getMessage()).contains("must contain one digit");
         assertThat(constraintViolations.size()).isEqualTo(1);
     }
 
