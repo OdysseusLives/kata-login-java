@@ -17,7 +17,7 @@ public class UserTest {
 
     @BeforeClass
     public static void setUp() {
-        validUser = new User("12345", "a12345678");
+        validUser = new User("12345", "12e4567B");
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
     }
@@ -61,7 +61,7 @@ public class UserTest {
 
     @Test
     public void password_shouldHaveEightOrMoreCharacters() throws Exception {
-        User user = new User(validUser.getUsername(), "a123456");
+        User user = new User(validUser.getUsername(), "aA12345");
 
         Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
 
@@ -71,11 +71,21 @@ public class UserTest {
 
     @Test
     public void password_shouldContainALowerCaseLetter() throws Exception {
-        User user = new User(validUser.getUsername(), "1234567983");
+        User user = new User(validUser.getUsername(), "1234567983A");
 
         Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
 
         assertThat(constraintViolations.iterator().next().getMessage()).contains("must contain one lowercase letter.");
+        assertThat(constraintViolations.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void password_shouldContainAnUpperCaseLetter() throws Exception {
+        User user = new User(validUser.getUsername(), "1234567983a");
+
+        Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
+
+        assertThat(constraintViolations.iterator().next().getMessage()).contains("must contain one uppercase letter.");
         assertThat(constraintViolations.size()).isEqualTo(1);
     }
 

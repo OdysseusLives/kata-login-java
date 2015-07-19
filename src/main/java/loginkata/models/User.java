@@ -18,6 +18,9 @@ public class User {
 
     @NotNull
     @Size(min=8, max=20)
-    @Pattern(regexp = "^(?=.*[a-z]).*$", message = "must contain one lowercase letter.")
+    @Pattern.List({
+        @Pattern(regexp = "^(?=.*[a-z]).*$", message = "must contain one lowercase letter."),
+        @Pattern(regexp = "^(?=.*[A-Z]).*$", message = "must contain one uppercase letter."),
+    })
     public String password;
 }
