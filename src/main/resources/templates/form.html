@@ -1,7 +1,10 @@
 <html>
+    <head>
+        <link type="text/css" href="css/index.css" rel="stylesheet" />
+    </head>
     <body>
         <form action="#" th:action="@{/}" th:object="${user}" method="post">
-            <table>
+            <table class="user-form">
                 <tr>
                     <td>Username:</td>
                     <td><input type="text" th:field="*{username}" /></td>
