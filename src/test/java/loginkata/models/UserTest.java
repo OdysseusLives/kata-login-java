@@ -1,4 +1,4 @@
-package loginkata.model;
+package loginkata.models;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -35,7 +35,17 @@ public class UserTest {
         Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
 
         assertThat(constraintViolations.size()).isEqualTo(1);
-        assertThat("may not be null").isEqualTo(constraintViolations.iterator().next().getMessage());
+        assertThat(constraintViolations.iterator().next().getMessage()).isEqualTo("may not be null");
+    }
+
+    @Test
+    public void shouldFailAUsernameUnderFiveCharacters() throws Exception {
+        User user = new User("hats", validUser.getPassword());
+
+        Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
+
+        assertThat(constraintViolations.size()).isEqualTo(1);
+        assertThat(constraintViolations.iterator().next().getMessage()).contains("size must be between 5 and");
     }
 
     @Test
@@ -45,6 +55,17 @@ public class UserTest {
         Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
 
         assertThat(constraintViolations.size()).isEqualTo(1);
-        assertThat("may not be null").isEqualTo(constraintViolations.iterator().next().getMessage());
+        assertThat(constraintViolations.iterator().next().getMessage()).isEqualTo("may not be null");
     }
+
+    @Test
+    public void shouldFailAPAsswordUnderEightCharacters() throws Exception {
+        User user = new User(validUser.getUsername(), "1234567");
+
+        Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
+
+        assertThat(constraintViolations.size()).isEqualTo(1);
+        assertThat(constraintViolations.iterator().next().getMessage()).contains("size must be between 8 and");
+    }
+
 }
