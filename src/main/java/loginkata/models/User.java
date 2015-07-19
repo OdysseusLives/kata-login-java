@@ -14,6 +14,7 @@ import javax.validation.constraints.Size;
 public class User {
     @NotNull
     @Size(min=5, max=20)
+    @Pattern(regexp = "^\\w*$", message = "must not contain special characters")
     public String username;
 
     @NotNull

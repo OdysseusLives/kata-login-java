@@ -50,6 +50,16 @@ public class UserTest {
     }
 
     @Test
+    public void username_shouldNotAllowSpecialCharacters() throws Exception {
+        User user = new User("sunSHINE111^&*", validUser.getPassword());
+
+        Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
+
+        assertThat(constraintViolations.iterator().next().getMessage()).contains("must not contain special characters");
+        assertThat(constraintViolations.size()).isEqualTo(1);
+    }
+
+    @Test
     public void password_shouldBeRequired() throws Exception {
         User user = new User(validUser.getUsername(), null);
 
