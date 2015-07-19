@@ -8,6 +8,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.Set;
+
 import static org.fest.assertions.api.Assertions.assertThat;
 
 public class UserTest {
@@ -16,7 +17,7 @@ public class UserTest {
 
     @BeforeClass
     public static void setUp() {
-        validUser = new User("12345", "12345678");
+        validUser = new User("12345", "a12345678");
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
     }
@@ -29,43 +30,53 @@ public class UserTest {
     }
 
     @Test
-    public void shouldRequireAUsername() throws Exception {
+    public void username_shouldBeRequired() throws Exception {
         User user = new User(null, validUser.getPassword());
 
         Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
 
-        assertThat(constraintViolations.size()).isEqualTo(1);
         assertThat(constraintViolations.iterator().next().getMessage()).isEqualTo("may not be null");
+        assertThat(constraintViolations.size()).isEqualTo(1);
     }
 
     @Test
-    public void shouldFailAUsernameUnderFiveCharacters() throws Exception {
+    public void username_shouldHaveFiveOrMoreCharacters() throws Exception {
         User user = new User("hats", validUser.getPassword());
 
         Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
 
-        assertThat(constraintViolations.size()).isEqualTo(1);
         assertThat(constraintViolations.iterator().next().getMessage()).contains("size must be between 5 and");
+        assertThat(constraintViolations.size()).isEqualTo(1);
     }
 
     @Test
-    public void shouldRequireAPassword() throws Exception {
+    public void password_shouldBeRequired() throws Exception {
         User user = new User(validUser.getUsername(), null);
 
         Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
 
-        assertThat(constraintViolations.size()).isEqualTo(1);
         assertThat(constraintViolations.iterator().next().getMessage()).isEqualTo("may not be null");
+        assertThat(constraintViolations.size()).isEqualTo(1);
     }
 
     @Test
-    public void shouldFailAPAsswordUnderEightCharacters() throws Exception {
-        User user = new User(validUser.getUsername(), "1234567");
+    public void password_shouldHaveEightOrMoreCharacters() throws Exception {
+        User user = new User(validUser.getUsername(), "a123456");
 
         Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
 
-        assertThat(constraintViolations.size()).isEqualTo(1);
         assertThat(constraintViolations.iterator().next().getMessage()).contains("size must be between 8 and");
+        assertThat(constraintViolations.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void password_shouldContainALowerCaseLetter() throws Exception {
+        User user = new User(validUser.getUsername(), "1234567983");
+
+        Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
+
+        assertThat(constraintViolations.iterator().next().getMessage()).contains("must contain one lowercase letter.");
+        assertThat(constraintViolations.size()).isEqualTo(1);
     }
 
 }

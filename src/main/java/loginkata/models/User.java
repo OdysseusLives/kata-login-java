@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Data
@@ -17,5 +18,6 @@ public class User {
 
     @NotNull
     @Size(min=8, max=20)
+    @Pattern(regexp = "^(?=.*[a-z]).*$", message = "must contain one lowercase letter.")
     public String password;
 }
