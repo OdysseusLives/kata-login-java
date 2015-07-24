@@ -1,4 +1,4 @@
-package loginkata.models;
+package loginkata.model;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
