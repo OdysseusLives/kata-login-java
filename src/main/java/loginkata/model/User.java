@@ -26,7 +26,7 @@ public class User {
     @Pattern.List({
         @Pattern(regexp = "^(?=.*[0-9]).*$", message = "must contain one digit"),
         @Pattern(regexp = "^(?=.*[a-z]).*$", message = "must contain one lowercase letter"),
-        @Pattern(regexp = "^(?=.*[A-Z]).*$", message = "must contain one uppercase letter"),
+        @Pattern(regexp = "^(?=.*[A-Z]).*$", message = "must contain one uppercase letter")
     })
     public String password;
 }

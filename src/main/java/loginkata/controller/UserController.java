@@ -28,8 +28,7 @@ public class UserController extends WebMvcConfigurerAdapter {
 
     @RequestMapping(value="/", method=RequestMethod.GET)
     public String showForm(User user, Model model) {
-        Iterable<User> users = userRepository.findAll();
-        model.addAttribute("users", users);
+        model.addAttribute("users", userRepository.findAll());
 
         return "form";
     }
