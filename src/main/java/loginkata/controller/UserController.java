@@ -39,7 +39,8 @@ public class UserController extends WebMvcConfigurerAdapter {
             model.addAttribute("newUser", user);
         }
 
-        return index(user, model);
+        model.addAttribute("users", userRepository.findAll());
+        return "form";
     }
 
 }
