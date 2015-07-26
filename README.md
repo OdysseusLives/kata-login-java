@@ -4,8 +4,11 @@ Requirements:
 - gradle
 - Java 1.8
 
-To run: 
+To run the project in place: 
 ``` ./gradlew bootRun ```
 
 To run tests: 
 ``` ./gradlew clean build ```
+
+To create war:
+``` ./gradlew clean war ```
