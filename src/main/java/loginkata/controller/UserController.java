@@ -34,7 +34,11 @@ public class UserController extends WebMvcConfigurerAdapter {
     }
 
     @RequestMapping(value="/", method=RequestMethod.POST)
-    public String checkUserInfo(@Valid User user, BindingResult bindingResult) {
+    public String checkUserInfo(@Valid User user, BindingResult bindingResult, Model model) {
+        if(userRepository.exists(user.getUsername())) {
+            bindingResult.rejectValue("username", "error.username", "username already exists");
+        }
+
         if (bindingResult.hasErrors()) {
             return "form";
         }
