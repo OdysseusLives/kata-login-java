@@ -9,6 +9,3 @@ To run the project in place:
 
 To run tests: 
 ``` ./gradlew clean build ```
-
-To create war:
-``` ./gradlew clean war ```
