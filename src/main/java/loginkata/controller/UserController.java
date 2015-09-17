@@ -28,12 +28,10 @@ public class UserController extends WebMvcConfigurerAdapter {
 
     @RequestMapping(value="/", method=RequestMethod.POST)
     public String createUser(@Valid User user, BindingResult bindingResult, Model model) {
-        if (!bindingResult.hasErrors()) {
-            log.info("Creating user: " + user.toString());
-            userRepository.save(user);
+        log.info("Creating user: " + user.toString());
+        userRepository.save(user);
 
-            model.addAttribute("newUser", user);
-        }
+        model.addAttribute("newUser", user);
 
         model.addAttribute("users", userRepository.findAll());
         return "form";

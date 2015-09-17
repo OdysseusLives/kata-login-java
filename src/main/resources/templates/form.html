@@ -5,21 +5,11 @@
             <div class="row">
                 Username:
                 <input type="text" th:field="*{username}" />
-
-                <p th:if="${#fields.hasErrors('username')}">There were errors in the username:</p>
-                <ul>
-                    <li th:each="err : ${#fields.errors('username')}" th:text="${err}" />
-                </ul>
             </div>
-            
+
             <div class="row">
                 Password:
                 <input type="text" th:field="*{password}" />
-
-                <p th:if="${#fields.hasErrors('password')}">There were errors in the password:</p>
-                <ul>
-                    <li th:each="err : ${#fields.errors('password')}" th:text="${err}" />
-                </ul>
             </div>
 
             <button type="submit">Submit</button>
