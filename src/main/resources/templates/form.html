@@ -1,26 +1,5 @@
 <html>
     <body>
-        <h2>Create new user</h2>
-        <form action="#" th:action="@{/}" th:object="${user}" method="post">
-            <div class="row">
-                Username:
-                <input type="text" th:field="*{username}" />
-            </div>
-
-            <div class="row">
-                Password:
-                <input type="text" th:field="*{password}" />
-            </div>
-
-            <button type="submit">Submit</button>
-        </form>
-
-        <p th:if="${newUser}">New user with username <span th:text="${newUser.username}" /> created!</p>
-
-        <h2 th:if="${users.size() > 0}">Current users</h2>
-
-        <ul>
-            <li th:each="existingUser : ${users}" th:text="${existingUser.username}" />
-        </ul>
+        <h2>Hello, World</h2>
     </body>
 </html>
