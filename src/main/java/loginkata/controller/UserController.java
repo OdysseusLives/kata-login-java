@@ -28,10 +28,6 @@ public class UserController extends WebMvcConfigurerAdapter {
 
     @RequestMapping(value="/", method=RequestMethod.POST)
     public String createUser(@Valid User user, BindingResult bindingResult, Model model) {
-        if(userRepository.exists(user.getUsername())) {
-            bindingResult.rejectValue("username", "error.username", "username already exists");
-        }
-
         if (!bindingResult.hasErrors()) {
             log.info("Creating user: " + user.toString());
             userRepository.save(user);
